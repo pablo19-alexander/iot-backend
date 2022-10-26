@@ -45,3 +45,11 @@ class User(AbstractUser):
     objects = UserManager()  # Llama el objeto Gestor - agregar los atributos del BaseManager
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'identification_type', 'identification']
+
+
+class Coordinator(models.Model):
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
