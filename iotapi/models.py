@@ -53,3 +53,15 @@ class Coordinator(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+class vehicle(models.Model):
+    id_vehicle = models.IntegerField(null=False, verbose_name="vehicle number ")
+    vehicle_type = models.IntegerField(null=False, verbose_name="Type vehicle")
+    vehicle_status = models.BooleanField('checked', default=False)
+
+class Conductor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    company_card = models.CharField(max_length=80)
+    car_numbre = models.CharField(max_length=40)
