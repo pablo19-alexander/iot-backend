@@ -53,3 +53,11 @@ class Coordinator(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+class Passenger(models.Model):
+	user = models.OneToField(User, on_delete=models.RESTRICT)
+	user_modifer = models.ForeignKey(User, on_delete=models.RESTRICT,related_name='user_modifier')
+	create_at = models.DataTimeField(auto_now_add=True)
+	update_at = models.DataTimeField(auto_now=True)
+	passenger_code = models.CharField(max_length=20)
+	passenger_permit = models.CharField(max_length=20)
+
