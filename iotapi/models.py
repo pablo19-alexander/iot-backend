@@ -37,27 +37,31 @@ class IdentificationType(models.Model):
 
 
 class User(AbstractUser):
-    identification_type = models.ForeignKey(IdentificationType, on_delete=models.RESTRICT)
+    identification_type = models.ForeignKey(
+        IdentificationType, on_delete=models.RESTRICT)
     identification = models.CharField(max_length=30, unique=True)
     phone = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=80, blank=True)
 
     objects = UserManager()  # Llama el objeto Gestor - agregar los atributos del BaseManager
 
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'identification_type', 'identification']
+    REQUIRED_FIELDS = ['first_name', 'last_name',
+                       'identification_type', 'identification']
 
 
 class Coordinator(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
-    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(
+        User, on_delete=models.RESTRICT, related_name='user_modifier')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-class Passenger(models.Model):
-	user = models.OneToField(User, on_delete=models.RESTRICT)
-	user_modifer = models.ForeignKey(User, on_delete=models.RESTRICT,related_name='user_modifier')
-	create_at = models.DataTimeField(auto_now_add=True)
-	update_at = models.DataTimeField(auto_now=True)
-	passenger_code = models.CharField(max_length=20)
-	passenger_permit = models.CharField(max_length=20)
 
+class Passenger(models.Model):
+    user = models.OneToField(User, on_delete=models.RESTRICT)
+    user_modifer = models.ForeignKey(
+        User, on_delete=models.RESTRICT, related_name='user_modifier')
+    create_at = models.DataTimeField(auto_now_add=True)
+    update_at = models.DataTimeField(auto_now=True)
+    passenger_code = models.CharField(max_length=20, blank=True)
+    passenger_permit = models.CharField(max_length=20, blank=True)
