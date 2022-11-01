@@ -45,8 +45,7 @@ class User(AbstractUser):
 
     objects = UserManager()  # Llama el objeto Gestor - agregar los atributos del BaseManager
 
-    REQUIRED_FIELDS = ['first_name', 'last_name',
-                       'identification_type', 'identification']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'identification_type', 'identification']
 
 
 class Coordinator(models.Model):
@@ -58,10 +57,10 @@ class Coordinator(models.Model):
 
 
 class Passenger(models.Model):
-    user = models.OneToField(User, on_delete=models.RESTRICT)
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
     user_modifer = models.ForeignKey(
         User, on_delete=models.RESTRICT, related_name='user_modifier')
-    create_at = models.DataTimeField(auto_now_add=True)
-    update_at = models.DataTimeField(auto_now=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
     passenger_code = models.CharField(max_length=20, blank=True)
     passenger_permit = models.CharField(max_length=20, blank=True)
