@@ -64,7 +64,7 @@ class VehicleType(models.Model):
 
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
-    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier_drive')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     company_card = models.CharField(max_length=80)
@@ -72,7 +72,7 @@ class Driver(models.Model):
     drivers_license_state = models.DateField()
     
 class Assignment(models.Model):
-    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier_assignment')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.RESTRICT)  
@@ -83,7 +83,7 @@ class Assignment(models.Model):
 class Passenger(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
     user_modifer = models.ForeignKey(
-        User, on_delete=models.RESTRICT, related_name='user_modifier')
+        User, on_delete=models.RESTRICT, related_name='user_modifier_passenger')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     passenger_code = models.CharField(max_length=20, blank=True)

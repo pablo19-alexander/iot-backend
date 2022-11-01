@@ -2,7 +2,7 @@ from rest_framework import routers
 
 from iotapi.views import UserView
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 
 router.register('users', UserView)
 
