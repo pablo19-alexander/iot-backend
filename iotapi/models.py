@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -31,10 +30,8 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-
 class IdentificationType(models.Model):
     name = models.CharField(max_length=50)
-
 
 class User(AbstractUser):
     identification_type = models.ForeignKey(
@@ -47,13 +44,40 @@ class User(AbstractUser):
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'identification_type', 'identification']
 
-
 class Coordinator(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
     user_modifier = models.ForeignKey(
         User, on_delete=models.RESTRICT, related_name='user_modifier')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+
+class Vehicle(models.Model):
+    id_vehicle = models.IntegerField(null=False, verbose_name="vehicle number ")
+    vehicle_type = models.IntegerField(null=False, verbose_name="Type vehicle")
+    vehicle_status = models.BooleanField('checked', default=True)
+    license_plate = models.CharField(max_length=10)
+    
+class VehicleType(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.TextField(blank=True)
+
+class Driver(models.Model):
+    user = models.OneToOneField(User, on_delete=models.RESTRICT)
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    company_card = models.CharField(max_length=80)
+    drivers_license = models.CharField(max_length=15)
+    drivers_license_state = models.DateField()
+    
+class Assignment(models.Model):
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.RESTRICT)  
+    conductor = models.ForeignKey(Driver, on_delete=models.RESTRICT)
+    state = models.BooleanField('checked', default=True)
 
 
 class Passenger(models.Model):
@@ -64,3 +88,4 @@ class Passenger(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     passenger_code = models.CharField(max_length=20, blank=True)
     passenger_permit = models.CharField(max_length=20, blank=True)
+
