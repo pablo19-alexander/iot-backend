@@ -1,9 +1,31 @@
 from rest_framework import serializers
 
-from iotapi.models import User
+from iotapi.models import User, IdentificationType, Coordinator
 
 
+class IdentificationTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IdentificationType
+        fields = '__all__'
+        
+    
+        
 class UserSerializer(serializers.ModelSerializer):
+    identification_type_name = serializers.ReadOnlyField()
     class Meta:
         model = User
-        fields = ['identification_type', 'identification', 'phone', 'address', 'first_name', 'last_name']
+        fields = ['identification_type', 'identification_type_name', 'identification', 'phone', 'address', 'email', 'first_name', 'last_name', 'password', 'username']
+
+    def create(self, validated_data):        
+        instance = User.objects.create_user(**validated_data)
+        return instance
+    
+    def update(self, instance, validated_data):
+        return super(UserSerializer, self).update(instance, validated_data)
+    
+
+class CoordinatorSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Coordinator
+        fields = ['user']

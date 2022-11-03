@@ -32,6 +32,10 @@ class UserManager(BaseUserManager):
 
 class IdentificationType(models.Model):
     name = models.CharField(max_length=50)
+    
+    # __str__ es un metodo que retorna un string cuando se invoca una instancia
+    def __str__(self):
+        return self.name
 
 class User(AbstractUser):
     identification_type = models.ForeignKey(
