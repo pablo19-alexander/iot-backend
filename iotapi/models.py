@@ -80,7 +80,7 @@ class Assignment(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.RESTRICT)  
-    Driver = models.ForeignKey(Driver, on_delete=models.RESTRICT)
+    driver = models.ForeignKey(Driver, on_delete=models.RESTRICT)
     state = models.BooleanField('checked', default=True)
 
 

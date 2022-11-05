@@ -45,7 +45,7 @@ class VehicleSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Vehicle
-        fields = ['id_vehicle', 'vehicle_type',
+        fields = ['id_vehicle', 'VehicleType',
                   'vehicle_status', 'license_plate']
 
 # Driver
@@ -57,10 +57,6 @@ class DriverSerializer(serializers.ModelSerializer):
         
 # assignmanet
 class AssignmentSerializer(serializers.ModelSerializer):
-    
-    user = UserSerializer()
-    vehicle = VehicleSerializer()
-    driver = DriverSerializer()
     
     class Meta:
         model = Assignment
