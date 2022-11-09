@@ -41,11 +41,10 @@ class VehicleTypeSerializer(serializers.ModelSerializer):
 
 
 class VehicleSerializer(serializers.ModelSerializer):
-    VehicleType = VehicleTypeSerializer()
     
     class Meta:
         model = Vehicle
-        fields = ['id_vehicle', 'VehicleType',
+        fields = ['number_vehicle', 'vehicle_type',
                   'vehicle_status', 'license_plate']
 
 # Driver
