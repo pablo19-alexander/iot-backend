@@ -32,6 +32,10 @@ class UserManager(BaseUserManager):
 
 class IdentificationType(models.Model):
     name = models.CharField(max_length=50)
+    
+    # __str__ es un metodo que retorna un string cuando se invoca una instancia
+    def __str__(self):
+        return self.name
 
 class User(AbstractUser):
     identification_type = models.ForeignKey(
@@ -42,8 +46,7 @@ class User(AbstractUser):
 
     objects = UserManager()  # Llama el objeto Gestor - agregar los atributos del BaseManager
 
-    REQUIRED_FIELDS = ['first_name', 'last_name',
-                       'identification_type', 'identification']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'identification_type', 'identification']
 
 class Coordinator(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
@@ -52,39 +55,42 @@ class Coordinator(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-
-class Vehicle(models.Model):
-    id_vehicle = models.IntegerField(null=False, verbose_name="vehicle number ")
-    vehicle_type = models.IntegerField(null=False, verbose_name="Type vehicle")
-    vehicle_status = models.BooleanField('checked', default=True)
-    license_plate = models.CharField(max_length=10)
-    
 class VehicleType(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
+    
+    def __str__(self):
+        return self.name
+
+class Vehicle(models.Model):
+    number_vehicle = models.IntegerField(null=False, verbose_name="vehicle number ")
+    vehicle_type = models.ForeignKey(VehicleType, on_delete=models.RESTRICT, related_name='vehicle_type')
+    vehicle_status = models.BooleanField('checked', default=True)
+    license_plate = models.CharField(max_length=10)
 
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
-    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier_drive')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     company_card = models.CharField(max_length=80)
     drivers_license = models.CharField(max_length=15)
     drivers_license_state = models.DateField()
-    
+
+# TODO: Revisar asignation
 class Assignment(models.Model):
-    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier_assignment')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.RESTRICT)  
-    conductor = models.ForeignKey(Driver, on_delete=models.RESTRICT)
+    driver = models.ForeignKey(Driver, on_delete=models.RESTRICT)
     state = models.BooleanField('checked', default=True)
 
 
 class Passenger(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
     user_modifer = models.ForeignKey(
-        User, on_delete=models.RESTRICT, related_name='user_modifier')
+        User, on_delete=models.RESTRICT, related_name='user_modifier_passenger')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     passenger_code = models.CharField(max_length=20, blank=True)
