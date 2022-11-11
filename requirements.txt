@@ -1,5 +1,7 @@
 django
 djangorestframework
 django-filter
-pymongo
+pymongo[snappy,gssapi,srv,tls]
+dnspython
+djongo
 dnspython
