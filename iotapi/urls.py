@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from iotapi.views import UserView, IdentificationTypeView, VehicleTypeView, VehicleView, AssignmentView, PassengerView
+from iotapi.views import UserView, IdentificationTypeView, VehicleTypeView, VehicleView, AssignmentView, PassengerView, DriverView
 
 router = routers.DefaultRouter()
 
@@ -10,6 +10,8 @@ router.register('vehicle-Type', VehicleTypeView)
 router.register('vehicle', VehicleView)
 router.register('assignment', AssignmentView)
 router.register('passenger', PassengerView)
+router.register('driver', DriverView)
+
 
 
 

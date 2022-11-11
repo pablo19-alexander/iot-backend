@@ -3,9 +3,9 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import F
 
-from iotapi.models import User, IdentificationType, VehicleType, Vehicle, Assignment, Passenger
+from iotapi.models import User, IdentificationType, VehicleType, Vehicle, Assignment, Passenger, Driver
 from iotapi.serializers import UserSerializer, IdentificationTypeSerializer, VehicleTypeSerializer, VehicleSerializer, \
-    AssignmentSerializer, PassengerSerializer
+    AssignmentSerializer, PassengerSerializer, DriverSerializer
 
 
 class UserView(ModelViewSet):
@@ -40,6 +40,11 @@ class VehicleView(ModelViewSet):
     # queryset = Vehicle.objects.select_related('vehicle_type').all().annotate(
     #     vehicle_type_name = F('vehicle_type__name')
     # )
+
+#Driver
+class DriverView(ModelViewSet):
+    serializer_class = DriverSerializer
+    queryset = Driver.objects.all()
 
 
 # passenger
