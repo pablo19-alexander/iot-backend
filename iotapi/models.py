@@ -94,7 +94,6 @@ class DeviceVehicle(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-#TODO: campo vehiculo - relacion 
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
     user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier_drive')
@@ -102,7 +101,7 @@ class Driver(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     company_card = models.CharField(max_length=80)
     drivers_license = models.CharField(max_length=15)
-    drivers_license_state = models.DateField()#TODO: duda de si colocar true o false o dejar la fecha
+    drivers_license_state = models.DateField()
 
 
 # TODO: Revisar asignation
