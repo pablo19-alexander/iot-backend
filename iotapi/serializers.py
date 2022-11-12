@@ -66,9 +66,7 @@ class DeviceVehicleSerializer(serializers.ModelSerializer):
         model = DeviceVehicle
         fields = ['device', 'vehicle']
 
-
 # Driver
-
 
 class DriverSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -79,7 +77,6 @@ class DriverSerializer(serializers.ModelSerializer):
                   'drivers_license', 'drivers_license_state']
 
 # assignmanet
-
 
 class AssignmentSerializer(serializers.ModelSerializer):
 
