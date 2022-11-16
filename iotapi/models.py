@@ -67,8 +67,7 @@ class DataDevice(models.Model):
 
 class Coordinator(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
-    user_modifier = models.ForeignKey(
-        User, on_delete=models.RESTRICT, related_name='user_modifier')
+    user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='user_modifier')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -94,7 +93,6 @@ class DeviceVehicle(models.Model):
     user_modifier = models.ForeignKey(User, on_delete=models.RESTRICT)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-
 
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete=models.RESTRICT)
