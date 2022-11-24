@@ -38,6 +38,12 @@ class VehicleTypeView(ModelViewSet):
 class AssignmentView(ModelViewSet):
     serializer_class = AssignmentSerializer
     queryset = Assignment.objects.all()
+# Guarda una nueva instancia antes de almacenar
+    def perform_create(self, serializer):
+        return serializer.save(user_modifier=self.request.user, state=True)
+
+    def perform_update(self, serializer):
+        return serializer.save(user_modifier=self.request.user, state=True)
 
 
 # vehicle type ///////////////////////// pediente //////////////////////

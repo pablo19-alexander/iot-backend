@@ -79,10 +79,9 @@ class DriverSerializer(serializers.ModelSerializer):
 # assignmanet
 
 class AssignmentSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Assignment
-        fields = ['user', 'vehicle', 'Driver', 'state']
+        exclude = ['create_at', 'update_at']
 
 # passenger
 
