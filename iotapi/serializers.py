@@ -91,4 +91,5 @@ class PassengerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Passenger
-        fields = ['user', 'passenger_code', 'passenger_permit']
+        fields = ['user']
+        # 'passenger_code', 'passenger_permit'
