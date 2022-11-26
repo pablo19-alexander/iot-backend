@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'sistema.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'demo_iot',
+        'NAME': 'Iot_DB',
     }
 }
 
@@ -142,4 +142,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'iotapi.User'
-
