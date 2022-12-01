@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import F
@@ -10,6 +11,7 @@ from iotapi.serializers import UserSerializer, IdentificationTypeSerializer, Veh
 
 
 class UserView(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     queryset = User.objects.select_related('identification_type').all().annotate(
         identification_type_name=F('identification_type__name')

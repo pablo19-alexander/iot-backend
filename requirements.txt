@@ -4,5 +4,5 @@ django-filter
 pymongo[snappy,gssapi,srv,tls]
 dnspython
 djongo
-dnspython
 django-cors-headers
+djangorestframework_simplejwt
